@@ -1,0 +1,598 @@
+/* import */
+@import './font.css';
+@import './reset.css';
+@import './common.css';
+
+body::-webkit-scrollbar {
+    display: none;
+}
+body.hidden {
+    overflow: hidden;
+}
+
+/* 확장메뉴 */
+.all-gnb svg .cita-st0 {
+    fill: none;
+    stroke: #2f2f2f;
+    stroke-width: 4;
+    stroke-miterlimit: 10;
+}
+
+.all-gnb {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 10000;
+    /* background-color: #fff; */
+
+    opacity: 0;
+    pointer-events: none;
+}
+.all-gnb.open {
+    /* opacity: 1; */
+    pointer-events: all;
+
+    /* body에 overflow:hidden */
+}
+
+.gnb-header {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 170px 1fr 1fr 50px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    /* width: calc(100% - 70px); */
+    width: 100%;
+    padding: 35px;
+    transition: background-color 0.3s 0.3s;
+}
+.gnb-header::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    /* width: 100%; */
+    height: 100%;
+    border-bottom: solid 1px #d3d3d3;
+    z-index: 1;
+    transition: 0.7s cubic-bezier(0.56, 0, 0.38, 1);
+    pointer-events: none;
+}
+.all-gnb.open .gnb-header {
+    transition: background-color 0.3s;
+    transition-delay: 0.6s;
+    background-color: #fff;
+}
+.all-gnb.open .gnb-header::after {
+    transition-delay: 0.7s;
+    width: 100%;
+}
+
+.gnb-header .logo-area {
+    justify-self: left;
+    width: 100%;
+}
+.gnb-header .logo-area a {
+    display: block;
+    width: 100%;
+}
+
+.gnb-header .lang-area {
+    justify-self: end;
+
+    display: flex;
+    align-items: center;
+    gap: 35px;
+}
+
+.gnb-header .lang-area li {
+    /* margin-bottom: 15px; */
+}
+
+.gnb-header .appt-area {
+    justify-self: center;
+}
+.gnb-header .appt-area strong {
+    position: relative;
+}
+.gnb-header .appt-area a {
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+.gnb-header .appt-area .svg {
+    margin-right: 14px;
+}
+
+.gnb-header .btn-close {
+    justify-self: right;
+
+    position: relative;
+    left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    transition: transform 0.3s ease-out;
+}
+.gnb-header .btn-close:hover {
+    transform: rotate(90deg);
+}
+.gnb-header .btn-close .svg {
+    width: 25px;
+    height: 25px;
+}
+.gnb-header .btn-close svg {
+    overflow: visible;
+}
+.gnb-header .btn-close line {
+    stroke-width: 3px;
+}
+
+/* 공통 */
+.all-gnb .gnb-item a,
+.gnb-header .lang-area a,
+.gnb-header .appt-area a {
+    position: relative;
+    font-weight: 600;
+    /* font-size: .85em; */
+    font-size: 13.6px;
+    text-transform: uppercase;
+    color: #2f2f2f;
+}
+.all-gnb .gnb-item a::before,
+.gnb-header .lang-area a::before,
+.gnb-header .appt-area strong::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 100%;
+    height: 3px;
+    background-color: #2f2f2f;
+    transform: scaleX(0);
+    transform-origin: right center;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0, 1);
+}
+.all-gnb .gnb-item a:hover::before,
+.gnb-header .lang-area a:hover::before,
+.gnb-header .appt-area strong:hover::before {
+    transform-origin: left center;
+    transform: scaleX(1);
+}
+
+.gnb-list {
+    position: relative;
+    z-index: 10;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: min-content;
+    width: 100%;
+    height: calc(100vh - 109px - 50px);
+    overflow-x: hidden;
+    overflow-y: scroll;
+    /* opacity: 0; */
+}
+.gnb-list > .gnb-item {
+    position: relative;
+    padding: 35px 35px 0;
+}
+.gnb-list > .gnb-item::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    z-index: 1;
+    border-right: solid 1px #d3d3d3;
+    transition: 0.3s linear;
+    transition-delay: 0s;
+    pointer-events: none;
+}
+.all-gnb.open .gnb-list > .gnb-item::after {
+    height: 100%;
+}
+.all-gnb.open .gnb-list > .gnb-item:nth-child(1n)::after {
+    transition-delay: 0.9s;
+}
+.gnb-list > .gnb-item:nth-child(4n)::after {
+    border-right: none;
+}
+.gnb-list > .gnb-item:last-child {
+    padding-bottom: 70px;
+}
+
+.gnb-item .number {
+    display: block;
+    font-size: 0.8rem;
+    margin-bottom: 15px;
+}
+
+.gnb-item .gnb-title {
+    margin-bottom: 30px;
+}
+.gnb-item .gnb-title a {
+    font-weight: 500;
+    font-size: 1.8rem;
+}
+
+.gnb-sub-list {
+}
+.gnb-sub-list .gnb-item {
+    margin-bottom: 15px;
+}
+
+.gnb-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: 100%;
+    height: 100%;
+}
+.gnb-bg > div {
+    position: relative;
+    width: 100%;
+    height: 0;
+    background-color: #fff;
+}
+/* //확장메뉴 */
+
+.appointment {
+    position: fixed;
+    right: 35px;
+    bottom: 35px;
+    z-index: 900;
+    transform: translateX(130%);
+    transition: transform 1s cubic-bezier(0.63, 0, 0.08, 1);
+}
+.appointment.show {
+    transform: translateX(0);
+}
+.appointment a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 9px;
+    box-sizing: content-box;
+    width: auto;
+    height: 25px;
+    background: #000;
+    border: solid 2px #000;
+    transition: 0.3s ease-out;
+}
+.appointment .svg {
+    width: 25px;
+}
+.appointment svg .cita-st0 {
+    fill: none;
+    stroke: #fff;
+    stroke-width: 4;
+    stroke-miterlimit: 10;
+}
+.appointment strong {
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: #fff;
+    transition: 0.3s ease-out;
+}
+
+.appointment:hover a {
+    background: #fff;
+}
+.appointment:hover strong {
+    color: #000;
+}
+.appointment:hover svg .cita-st0 {
+    stroke: #000;
+}
+/* //예약잡기 */
+
+/* header */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    column-gap: 70px;
+    padding: 35px 35px 0 35px;
+    width: 100%;
+    transition: transform 1s cubic-bezier(0, 0, 0.1, 0.99), background-color 0.3s ease-out;
+}
+.header.white {
+    padding: 10px 35px;
+    background: #fff;
+    border-bottom: solid 1px #d3d3d3;
+}
+.header.updown {
+    transform: translateY(-100%);
+}
+
+.header .logo-area {
+    width: 170px;
+}
+.header.white .logo-area {
+    width: 125px;
+}
+
+.header .logo {
+    display: block;
+}
+
+.header .logo svg {
+}
+.header.white .logo path {
+    fill: #2f2f2f !important;
+}
+
+.header .nav-area {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.header .nav-area ul {
+    position: relative;
+    left: -6%;
+    display: flex;
+    column-gap: 35px;
+    padding: 3px;
+}
+.header.white .nav-area ul {
+    left: auto;
+}
+.header .nav-area li {
+    text-transform: uppercase;
+    color: #fff;
+    font-weight: 600;
+}
+.header.white .nav-area li {
+    color: #2f2f2f;
+}
+
+.header .nav-area a {
+    position: relative;
+    display: block;
+}
+.header .nav-area a::before {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #fff;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s;
+}
+.header.white .nav-area a::before {
+    background-color: #2f2f2f;
+}
+.header .nav-area a:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.header .btn-open {
+    position: relative;
+    right: -15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 65px;
+    height: 65px;
+}
+
+.header .btn-open .svgbox {
+    width: 35px;
+    height: 19px;
+}
+.header .btn-open svg {
+    overflow: visible;
+}
+.header .btn-open line {
+    stroke-width: 3px;
+    transition: transform 0.3s;
+    transform-origin: center;
+}
+.header.white .btn-open line {
+    stroke: #2f2f2f !important;
+}
+.header .btn-open:hover line.top,
+.header .btn-open:hover line.bottom {
+    transform: scaleX(0.5);
+}
+
+.header .btn-open:hover line.middle {
+    transform: scaleX(2);
+}
+/* //header */
+
+/* footer */
+.footer {
+    padding-top: 35px;
+    padding-bottom: 90px;
+    border-top: solid 1px #d3d3d3;
+}
+
+.footer .footer-top {
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+}
+.footer .link-list {
+    display: flex;
+    gap: 45px;
+}
+.footer .link-list li {
+}
+.footer .link-list li a {
+    position: relative;
+    display: block;
+    font-weight: 600;
+    color: #2f2f2f;
+}
+.footer .link-list li a::before {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #2f2f2f;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s;
+}
+.footer .link-list li:hover a::before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.footer .copy {
+    margin-left: 45px;
+}
+
+.footer .sns-list {
+    display: flex;
+    column-gap: 35px;
+    margin-left: auto;
+}
+.footer .sns-list li {
+}
+.footer .sns-list a {
+    display: block;
+    width: 30px;
+    height: 30px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    transition: 0.3s ease-out;
+}
+.footer .sns-list .instagram {
+    background-image: url(../images/sns01.png);
+}
+.footer .sns-list .facebook {
+    background-image: url(../images/sns02.png);
+}
+.footer .sns-list .pinterest {
+    background-image: url(../images/sns03.png);
+}
+.footer .sns-list .linkedin {
+    background-image: url(../images/sns04.png);
+}
+.footer .sns-list li:hover a {
+    opacity: 0.4;
+}
+
+.footer .footer-bottom {
+    display: flex;
+    gap: 70px;
+    margin-top: 70px;
+}
+.footer .about-area {
+    max-width: 400px;
+    font-size: 0.9rem;
+}
+
+.footer .newsletter-area {
+    flex: 1;
+    max-width: 400px;
+}
+.footer .newsletter-area .headline {
+    margin-bottom: 16px;
+}
+
+.footer .form-input {
+}
+.footer .form-input form {
+    position: relative;
+}
+.footer .form-input input {
+    border: none;
+
+    width: calc(100% - 35px - 10px);
+    padding: 5px;
+    margin-bottom: 15px;
+    border-bottom: solid 2px #2f2f2f;
+    font-size: 1em;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #2f2f2f;
+    /* background-color: #fff; */
+    background-color: rgba(0, 0, 0, 0);
+}
+.footer .form-input input:focus {
+    outline: none;
+}
+.footer .form-input input::placeholder {
+    opacity: 0.3;
+}
+.footer .btn-submit {
+    position: absolute;
+    top: calc(50% - 16px);
+    right: 25px;
+    width: 60px;
+}
+.footer .btn-submit .box {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    /* transform: translateX(12.5%); */
+}
+.footer .btn-submit svg {
+    position: relative;
+    left: -5px;
+    transform: translateX(-25%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.footer .btn-submit:hover svg {
+    transform: translateX(0);
+}
+.footer .btn-submit .arrow-st0 {
+    fill: none;
+    stroke-width: 3;
+    stroke-miterlimit: 10;
+    stroke: #2f2f2f;
+}
+
+.footer .logo-area {
+    position: relative;
+    max-width: 224px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 45px;
+    margin-left: auto;
+}
+.footer .logo-top {
+    width: 150px;
+}
+.footer .logo-top svg {
+}
+
+.footer .logo-bottom {
+    position: relative;
+    width: 40px;
+    transition: 0.3s ease-out;
+}
+.footer .logo-bottom:hover {
+    opacity: 0.4;
+}
+.footer .logo-bottom svg {
+}
+/* //footer */

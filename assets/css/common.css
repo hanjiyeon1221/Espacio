@@ -1,0 +1,43 @@
+/* 공통요소 */
+.blind {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+}
+
+.hidden {
+    overflow: hidden;
+}
+
+.wrapper {
+    /* min-width: 320px; */
+    position: relative;
+    overflow: hidden;
+}
+
+/* h3 기준 */
+.headline {
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+/* 레이아웃 */
+.layout {
+    width: calc(100% - 35px * 2);
+    padding-left: 35px;
+    padding-right: 35px;
+    max-width: 1500px;
+    margin: 0 auto;
+    box-sizing: content-box;
+}
+
+.link-cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
